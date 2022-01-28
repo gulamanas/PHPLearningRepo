@@ -52,4 +52,5 @@ echo "1 - " . $longText . '<br>';
 echo "2 - " . nl2br($longText) . '<br>';
 echo "3 - " . htmlentities($longText) . '<br>';
 echo "4 - " . nl2br(htmlentities($longText)) . '<br>';
+echo "5 - " . html_entity_decode('&lt;b&gt;Anas&lt;/b&gt');
 // https://www.php.net/manual/en/ref.strings.php
