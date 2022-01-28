@@ -1,10 +1,16 @@
 <?php
 
 // Create array
+$fruits = ["Banana", "Apple", "Orange"];
 
 // Print the whole array
+var_dump($fruits);
+echo '<pre>';
+var_dump($fruits);
+echo '</pre>';
 
 // Get element by index
+echo $fruitsp[1] . '<br>';
 
 // Set element by index
 
