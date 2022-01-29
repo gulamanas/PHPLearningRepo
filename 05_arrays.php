@@ -60,15 +60,39 @@ var_dump(explode(",", $string));
 echo '</pre>';
 
 // Combine array elements into string
+echo implode("&", $fruits);
 
 // Check if element exist in the array
+echo '<pre>';
+var_dump(in_array('Apple', $fruits));
+echo '</pre>';
 
 // Search element index in the array
 
+echo '<pre>';
+// var_dump(array_search('Mango', $fruits));
+var_dump(array_search('Apple', $fruits));
+echo '</pre>';
+
+// false if the value doesn't exist else it will show the index of the value
+
 // Merge two arrays
 
-// Sorting of array (Reverse order also)
+$vegetables = ["Potato", "Cucumber"];
+echo '<pre>';
+var_dump(array_merge($fruits, $vegetables));
+// latest version to merge array is spread operator
+var_dump([...$fruits, ...$vegetables]); // v7.4 or more
+echo '</pre>';
 
+// Sorting of array (Reverse order also)
+echo '<pre>';
+sort($fruits);
+var_dump($fruits);
+// rsort for reverse sort
+rsort($fruits);
+var_dump($fruits);
+echo '</pre>';
 
 // https://www.php.net/manual/en/ref.array.php
 
