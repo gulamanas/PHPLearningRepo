@@ -10,25 +10,54 @@ var_dump($fruits);
 echo '</pre>';
 
 // Get element by index
-echo $fruitsp[1] . '<br>';
+echo $fruits[1] . '<br>';
+// echo $fruits[3] . '<br>';
 
 // Set element by index
+$fruits[0] = 'Peach';
+echo '<pre>';
+var_dump($fruits);
+echo '</pre>';
 
 // Check if array has element at index 2
+isset($fruits[1]); // true
+isset($fruits[3]); // false
 
 // Append element
+$fruits[] = 'Banana';
+echo '<pre>';
+var_dump($fruits);
+echo '</pre>';
 
 // Print the length of the array
+echo count($fruits) . '<br>';
 
 // Add element at the end of the array
+array_push($fruits, 'foo');
+echo '<pre>';
+var_dump($fruits);
+echo '</pre>';
 
 // Remove element from the end of the array
+echo array_pop($fruits);
+echo '<pre>';
+var_dump($fruits);
+echo '</pre>';
 
 // Add element at the beginning of the array
+array_unshift($fruits, 'bar');
+echo '<pre>';
+var_dump($fruits);
+echo '</pre>';
 
 // Remove element from the beginning of the array
+echo array_shift($fruits);
 
 // Split the string into an array
+$string = 'Banana,Apple,Peach';
+echo '<pre>';
+var_dump(explode(",", $string));
+echo '</pre>';
 
 // Combine array elements into string
 
