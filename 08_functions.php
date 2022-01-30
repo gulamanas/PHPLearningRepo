@@ -1,11 +1,15 @@
 <?php
 
 // Function which prints "Hello I am Zura"
-function hello()
-{
-    echo "Hello I am Someone" . '<br>';
-}
-hello();
+// function hello()
+// {
+//     echo "Hello I am Someone" . '<br>';
+// }
+$hello = fn () =>
+
+"Hello I am Someone" . '<br>';
+
+echo $hello();
 
 // Function with argument
 function people($name)
