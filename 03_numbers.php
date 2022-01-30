@@ -37,9 +37,10 @@ is_numeric("3.45"); // true
 is_numeric("3g.45"); // false
 
 // Conversion
+echo "Conversion" . '<br>';
 $strNumber = '12.34';
-$number = (float)$strNumber;
-// $number = intval($strNumber);
+$number = intval($strNumber);
+// $number = (float)$strNumber;
 var_dump($number);
 echo '<br>';
 
