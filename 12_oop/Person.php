@@ -29,3 +29,4 @@ class Person
         return self::$counter;
     }
 }
+$person = new Person('Gulam', 'Anas');

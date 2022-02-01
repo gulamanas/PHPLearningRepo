@@ -3,6 +3,7 @@
 
 // What is class and instance
 require_once 'Person.php';
+require_once 'Customer.php';
 
 $p = new Person("Gulam", 'Anas');
 $p->setAge(23);

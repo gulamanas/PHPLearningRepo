@@ -2,27 +2,37 @@
 
 class Customer
 {
-    public $id;
-    public $name;
-    public $email;
-    public $balance;
+    private     $id;
+    public      $name;
+    protected     $email;
+    private     $balance;
 
-    public function __construct()
+    public function __construct($id, $name, $email, $balance)
     {
-        echo "The construcor ran....";
-    }
-
-    public function getCustomer($id)
-    {
-        $this->id = $id;
-        return 'John Doe';
-    }
-
-    public function __destruct()
-    {
-        echo 'the destruct ran.....';
+        $this->id       = $id;
+        $this->name     = $name;
+        $this->email    = $email;
+        $this->balance  = $balance;
     }
 }
 
-$customer = new Customer;
-echo $customer->getCustomer(1);
+
+class Subscriber extends Customer
+{
+    public $plan;
+
+    public function __construct($id, $name, $email, $balance, $plan)
+    {
+        parent::__construct($id, $name, $email, $balance);
+        $this->plan = $plan;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+}
+$subscriber = new Subscriber(1, 'Gulam Anas', 'anas@gmail.in', 0, 'Pro');
+
+echo $subscriber->plan . '<br>';
+echo $subscriber->getEmail();
