@@ -1,6 +1,6 @@
 <?php
 
-class Customer
+abstract class Customer
 {
     private     $id;
     public      $name;
@@ -14,6 +14,8 @@ class Customer
         $this->email    = $email;
         $this->balance  = $balance;
     }
+
+    abstract public function getEmail();
 }
 
 
@@ -35,4 +37,19 @@ class Subscriber extends Customer
 $subscriber = new Subscriber(1, 'Gulam Anas', 'anas@gmail.in', 0, 'Pro');
 
 echo $subscriber->plan . '<br>';
-echo $subscriber->getEmail();
+echo $subscriber->getEmail() . '<br>';
+
+
+class User
+{
+    public $username;
+    public $password;
+    public static $passwordLength = 6;
+
+    public static function getPasswordLength()
+    {
+        return self::$passwordLength;
+    }
+}
+
+echo User::$passwordLength;
