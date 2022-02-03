@@ -41,9 +41,20 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($products as $product) { ?>
-
-            <?php } ?>
+            <?php foreach ($products as
+                $i => $product) : ?>
+                <tr>
+                    <th scope="row"><?php echo $i + 1 ?></th>
+                    <td></td>
+                    <td><?php echo $product['title'] ?></td>
+                    <td><?php echo $product['price'] ?></td>
+                    <td><?php echo $product['create_date'] ?></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary">Edit</button>
+                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 
