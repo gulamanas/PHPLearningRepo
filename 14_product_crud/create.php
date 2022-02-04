@@ -2,7 +2,23 @@
 $pdo = new PDO('mysql:host=localhost;port=3306;dbname=product_crud', 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+echo $_SERVER['REQUEST_METHOD'] . '<br>';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+    $date = date('Y-m-d H:i:s');
 
+    $statement = $pdo->prepare("INSERT INTO products (title, image, description, price, create_date)
+    VALUES (:title, :image, :description, :price, :date)");
+
+    $statement->bindValue(':title', $title);
+    $statement->bindValue(':image', '');
+    $statement->bindValue(':description', $description);
+    $statement->bindValue(':price', $price);
+    $statement->bindValue(':date', $date);
+    $statement->execute();
+}
 
 ?>
 
@@ -26,14 +42,14 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 <body>
     <h1>Create new Product</h1>
 
-    <form method="get">
+    <form method="post">
         <div class="form-group">
             <label>Product Image</label> <br>
             <input type="file" name="image">
         </div>
         <div class="form-group">
             <label>Product Title</label>
-            <input type="text" name="product" class="form-control">
+            <input type="text" name="title" class="form-control">
         </div>
         <div class="form-group">
             <label>Product Description</label>
