@@ -2,8 +2,11 @@
 $pdo = new PDO('mysql:host=localhost;port=3306;dbname=product_crud', 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-
 $errors = [];
+
+$title = '';
+$price = '';
+$description = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
@@ -12,21 +15,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $date = date('Y-m-d H:i:s');
 
     if (!$title) {
-        $errorrs[] = 'Product title is required';
+        $errors[] = 'Product title is required';
     }
     if (!$price) {
-        $errorrs[] = 'Product price is required';
+        $errors[] = 'Product price is required';
     }
 
-    $statement = $pdo->prepare("INSERT INTO products (title, image, description, price, create_date)
+    if (!is_dir('images')) {
+        mkdir('images');
+    }
+
+    if (empty($errors)) {
+        $image = $_FILES['image'] ?? null;
+        $imagePath = '';
+        if ($image) {
+            $imagePath = 'images/' . randomString(8) . '/' . $image['name'];
+            mkdir(dirname($imagePath));
+
+            move_uploaded_file($image['tmp_name'], $imagePath);
+        }
+
+        $statement = $pdo->prepare("INSERT INTO products (title, image, description, price, create_date)
     VALUES (:title, :image, :description, :price, :date)");
 
-    $statement->bindValue(':title', $title);
-    $statement->bindValue(':image', '');
-    $statement->bindValue(':description', $description);
-    $statement->bindValue(':price', $price);
-    $statement->bindValue(':date', $date);
-    $statement->execute();
+        $statement->bindValue(':title', $title);
+        $statement->bindValue(':image', $imagePath);
+        $statement->bindValue(':description', $description);
+        $statement->bindValue(':price', $price);
+        $statement->bindValue(':date', $date);
+        $statement->execute();
+    }
+}
+
+function randomString($n)
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $str = '';
+    for ($i = 0; $i < $n; $i++) {
+        $index = rand(0, strlen($characters) - 1);
+        $str .= $characters[$index];
+    }
+
+    return $str;
 }
 
 ?>
@@ -59,24 +89,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     <?php endif; ?>
 
-    <form method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label>Product Image</label> <br>
             <input type="file" name="image">
         </div>
         <div class="form-group">
             <label>Product Title</label>
-            <input type="text" name="title" class="form-control">
+            <input type="text" name="title" class="form-control" value="<?php echo $title ?>">
         </div>
         <div class="form-group">
             <label>Product Description</label>
-            <textarea class="form-control" name="description"></textarea>
+            <textarea class="form-control" name="description"><?php echo $description ?></textarea>
         </div>
         <div class="form-group">
             <label>Product Price</label>
-            <input type="number" step=".01" name="price" class="form-control">
+            <input type="number" step=".01" name="price" class="form-control" value="<?php echo $price ?>">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn mt-2 btn-primary">Submit</button>
+        <a href="./index.php" class="btn mt-2 btn-outline-secondary">Home</a>
     </form>
 
 
