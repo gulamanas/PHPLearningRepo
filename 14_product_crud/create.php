@@ -2,12 +2,21 @@
 $pdo = new PDO('mysql:host=localhost;port=3306;dbname=product_crud', 'root', '');
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-echo $_SERVER['REQUEST_METHOD'] . '<br>';
+
+$errors = [];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
     $description = $_POST['description'];
     $price = $_POST['price'];
     $date = date('Y-m-d H:i:s');
+
+    if (!$title) {
+        $errorrs[] = 'Product title is required';
+    }
+    if (!$price) {
+        $errorrs[] = 'Product price is required';
+    }
 
     $statement = $pdo->prepare("INSERT INTO products (title, image, description, price, create_date)
     VALUES (:title, :image, :description, :price, :date)");
@@ -41,6 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <h1>Create new Product</h1>
+
+    <?php if (!empty($errors)) : ?>
+        <div class="alert alert-danger">
+            <?php foreach ($errors as $error) : ?>
+                <div><?php echo $error ?></div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 
     <form method="post">
         <div class="form-group">
