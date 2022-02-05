@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         $image = $_FILES['image'] ?? null;
         $imagePath = '';
-        if ($image) {
+        if ($image && $image['tmp_name']) {
             $imagePath = 'images/' . randomString(8) . '/' . $image['name'];
             mkdir(dirname($imagePath));
 
@@ -44,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $statement->bindValue(':price', $price);
         $statement->bindValue(':date', $date);
         $statement->execute();
+        header('Location: index.php');
     }
 }
 
