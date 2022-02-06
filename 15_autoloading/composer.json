@@ -1,0 +1,15 @@
+{
+    "name": "gulam/15_autoloading",
+    "authors": [
+        {
+            "name": "Gulam Anas",
+            "email": "g.anas786@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "app\\": "./app"
+        }
+    }
+}
